@@ -66,7 +66,7 @@ exports.updateSchool = asyncHandler(async (req, res, next) => {
           schoolAbout,
           schoolLocation,
           schoolAdmission,
-          schoolImage: file[0],
+          schoolImage: req.files[0].location,
         },
         { new: true }
       );
