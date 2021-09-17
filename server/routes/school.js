@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const uploadMultiImage = require("../utils/uploadFiles");
+const uploadMultiImage = require("../util/upload");
 const multer = require("multer");
 
 const {

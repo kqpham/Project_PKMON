@@ -7,7 +7,7 @@ const schoolSchema = new mongoose.Schema({
     schoolLocation: { type: String, },
     schoolAdmission: { type: String, },
     schoolImage: { type: String, },
-    creator: {type: String, },
+    creatorId: {type: String, },
 });
 
 module.exports = School = mongoose.model("school", schoolSchema);
