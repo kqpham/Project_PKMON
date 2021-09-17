@@ -2,15 +2,14 @@ const School = require("../models/Schools");
 const asyncHandler = require("express-async-handler");
 
 exports.createSchool = asyncHandler(async (req, res, next) => {
-  const { schoolName, schoolAbout, schoolLocation, schoolAdmission, file } =
-    req.body;
+  const { schoolName, schoolAbout, schoolLocation, schoolAdmission} = req.body;
 
   const createdSchool = await School.create({
     schoolName,
     schoolAbout,
     schoolLocation,
     schoolAdmission,
-    schoolImage: file[0],
+    schoolImage: req.files[0].location,
     creatorId: req.params.id,
   });
 
