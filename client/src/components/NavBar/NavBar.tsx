@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/logoDreamSchool.png";
 import {
   Box,
-  Typography,
   AppBar,
   Button,
   Toolbar,

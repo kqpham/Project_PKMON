@@ -61,7 +61,7 @@ export default function School(): JSX.Element {
         (schoolCard.creatorId === sessionId) ? ( 
           <Box>
           <Button component={Link} to={`/update/${params.id}`}>Update</Button>
-          <img src={schoolCard.schoolImage}/>
+          <img src={schoolCard.schoolImage} alt={schoolCard.schoolName}/>
           <Grid item>
             <Typography>{schoolCard.schoolName}</Typography>
             <Typography>{schoolCard.schoolAbout}</Typography>
@@ -73,7 +73,7 @@ export default function School(): JSX.Element {
           <Box>
           <img
               src={schoolCard.schoolImage}
-              alt={`picture of ${schoolCard.schoolName}`}
+              alt={schoolCard.schoolName}
             />
             <Grid item>
             <Typography>{schoolCard.schoolName}</Typography>

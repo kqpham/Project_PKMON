@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -50,7 +50,7 @@ export default function CreateSchool(): JSX.Element {
         if (response.success) {
           route.push("/");
         } else if (response.error) {
-          console.log(response.data.error);
+          console.log(response.error.message);
         } else {
           console.log("An error has occured");
         }

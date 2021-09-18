@@ -4,7 +4,6 @@ import UpdateSchool from "./pages/UpdateSchool/UpdateSchool";
 import School from "./pages/School/School";
 import CreateSchool from "./pages/CreateSchool/CreateSchool";
 import "./App.css";
-import { useEffect } from "react";
 
 function App(): JSX.Element {
   return (

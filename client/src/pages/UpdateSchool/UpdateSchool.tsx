@@ -153,7 +153,7 @@ export default function UpdateSchool(): JSX.Element {
                 </Typography>
               </Grid>
               <Grid item xs>
-                <img src={schoolInfo?.schoolImage} />
+                <img src={schoolInfo?.schoolImage} alt={schoolInfo?.schoolName} />
               </Grid>
             </Grid>
             <form>
