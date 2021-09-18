@@ -2,9 +2,9 @@ import {
   Button,
   Grid,
   Typography,
-  GridList,
-  GridListTile,
-  GridListTileBar,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
   IconButton,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
   }, []);
   console.log(allSchools);
   return (
-    <Grid container justify="center" className={classes.container}>
+    <Grid container justifyContent="center" className={classes.container}>
       <NavBar />
       <Grid item>
         <Typography className={classes.title}>
@@ -40,10 +40,10 @@ export default function Home(): JSX.Element {
         </Typography>
       </Grid>
       <Grid container item className={classes.listContainer}>
-        <GridList cellHeight={300} className={classes.contestGrid}>
+        <ImageList rowHeight={300} className={classes.contestGrid}>
           {allSchools ? (
             allSchools.map((school) => (
-              <GridListTile
+              <ImageListItem
                 key={school._id}
                 cols={ 2 }
                 rows={ 1}
@@ -62,17 +62,17 @@ export default function Home(): JSX.Element {
                   />
                 </Button>
 
-                <GridListTileBar
+                <ImageListItemBar
                   titlePosition="bottom"
                   subtitle={school.schoolName}
                   actionPosition="left"
                 />
-              </GridListTile>
+              </ImageListItem>
             ))
           ) : (
             <CircularProgress />
           )}
-        </GridList>
+        </ImageList>
       </Grid>
     </Grid>
   );

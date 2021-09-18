@@ -55,7 +55,7 @@ export default function School(): JSX.Element {
 
 
   return (
-    <Grid container direction="column" justify="center" className={classes.container}>
+    <Grid container direction="column" justifyContent="center" className={classes.container}>
       <NavBar />
       {schoolCard ? (
         (schoolCard.creatorId === sessionId) ? ( 
