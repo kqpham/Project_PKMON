@@ -9,7 +9,9 @@ const {
     getSchoolById,
     getAllSchools,
     updateSchool,
+    updateSchoolNoImg,
 } = require("../controllers/school");
+const { update } = require("../models/Schools");
 
 router.route("/:id").post(function (req, res, next) {
     uploadMultiImage(req, res, function (err) {
@@ -24,6 +26,7 @@ router.route("/:id").post(function (req, res, next) {
 router.route("/schools").get(getAllSchools);
 router.route("/n/:id").post(createSchoolNoImg);
 router.route("/:id").get(getSchoolById);
+router.route("/n/:id/:creator").patch(updateSchoolNoImg);
 router.route("/:id/:creator").patch(function (req, res, next){
     uploadMultiImage(req, res, function (err) {
         if (err instanceof multer.MulterError){

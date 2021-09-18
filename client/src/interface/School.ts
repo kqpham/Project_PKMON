@@ -19,5 +19,6 @@ export interface iSchool {
     schoolLocation: string;
     schoolAdmission: string;
     schoolImage: string;
+    creationDate: Date;
     creatorId: string;
 }

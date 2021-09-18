@@ -103,6 +103,36 @@ export const createSchoolNoImg = async (formData: schoolFields): Promise<any> =>
 
 };
 
+export const updateSchool = async (formData: FormData, id: string, creatorId: string): Promise<any> => {
+
+    return await axios({
+       method: "patch",
+       url:  `/${id}/${creatorId}`,
+       data: formData,
+       headers: {'Content-Type': "multipart/form-data"},
+    }).then((res) => { return res.data }).catch(() => ({
+        error: { message: "Unable to connect to server. Please try again" },
+    }));
+
+};
+
+export const updateSchoolNoImg = async (formData: schoolFields, id: string, creatorId: string): Promise<any> => {
+    
+        const fetchOptions: FetchOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+            credentials: 'include',
+        };
+        return await fetch(`/n/${id}/${creatorId}}`, fetchOptions)
+            .then((res) => res.json())
+            .catch(() => ({
+                error: { message: 'Unable to connect to server. Please try again' },
+            }));
+    
+
+};
+
 export const getAllSchools = async (): Promise<AuthApiData> => {
     const fetchOptions: FetchOptions = {
         method: 'GET',

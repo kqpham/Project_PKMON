@@ -9,12 +9,9 @@ import {
   TextareaAutosize,
   Button,
 } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { Field, Form, Formik, FormikProps, FormikHelpers } from "formik";
 import { createSchool, createSchoolNoImg } from "../../helpers/APICalls/school";
-import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import { schoolFields } from "../../interface/School";
+import NavBar from "../../components/NavBar/NavBar";
 
 export default function CreateSchool(): JSX.Element {
   const [inputFile, setInputFile] = useState<File>();
@@ -41,7 +38,7 @@ export default function CreateSchool(): JSX.Element {
         if (response.success) {
           route.push("/");
         } else if (response.error) {
-          console.log(response.data.error);
+          console.log(response.error.message);
         } else {
           console.log("An error has occured");
         }
@@ -75,6 +72,7 @@ export default function CreateSchool(): JSX.Element {
 
   return (
     <Grid container component="main">
+      <NavBar />
       <CssBaseline />
       <Grid item xs={12} sm={12} md={12} elevation={6} component={Paper} square>
         <Box>
@@ -106,6 +104,7 @@ export default function CreateSchool(): JSX.Element {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                required
                 onChange={(event)=> handleChange(event.target.value, "schoolName")}
               />
               <Typography>About:</Typography>
@@ -113,6 +112,7 @@ export default function CreateSchool(): JSX.Element {
                 id="schoolAbout"
                 minRows={5}
                 style={{ width: "100%" }}
+                required
                 onChange={(event)=> handleChange(event.target.value, "schoolAbout")}
               />
               <Typography>Location:</Typography>
@@ -120,6 +120,7 @@ export default function CreateSchool(): JSX.Element {
                 id="schoolLocation"
                 minRows={5}
                 style={{ width: "100%" }}
+                required
                 onChange={(event)=> handleChange(event.target.value, "schoolLocation")}
               />
 
@@ -128,6 +129,7 @@ export default function CreateSchool(): JSX.Element {
                 id="schoolAdmission"
                 minRows={5}
                 style={{ width: "100%" }}
+                required
                 onChange={(event)=> handleChange(event.target.value, "schoolAdmission")}
               />
 
