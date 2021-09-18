@@ -17,6 +17,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import { iSchool } from "../../interface/School";
+import NavBar from "../../components/NavBar/NavBar";
 
 interface RouteParams {
   id: string;
@@ -135,6 +136,7 @@ export default function UpdateSchool(): JSX.Element {
   return (
     <Grid container component="main">
       <CssBaseline />
+      <NavBar />
       <Grid item xs={12} sm={12} md={12} elevation={6} component={Paper} square>
         <Box>
           <Box
