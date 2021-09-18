@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Field, Form, Formik, FormikProps, FormikHelpers } from "formik";
-import { createSchool } from "../../helpers/APICalls/school";
+import { createSchool, createSchoolNoImg } from "../../helpers/APICalls/school";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import { schoolFields } from "../../interface/School";
@@ -33,31 +33,28 @@ export default function CreateSchool(): JSX.Element {
     data.append('schoolAbout', schoolAbout);
     data.append('schoolLocation', schoolLocation);
     data.append('schoolAdmission', schoolAdmission);
-    for (const [key, value] of data.entries()) {
-      console.log('data: ', key, value);
-    }
     
     if (inputFile) {
       data.append('multiImage', inputFile, inputFile.name);
       createSchool(data).then((response)=>{
-        if (response.status === 201) {
+        console.log(response);
+        if (response.success) {
           route.push("/");
-        } else if (response.status === 500) {
+        } else if (response.error) {
           console.log(response.data.error);
         } else {
-          route.push('/');
           console.log("An error has occured");
         }
       })
       
     } else {
-      createSchool(data).then((response)=>{
-        if (response.status === 201) {
+     
+      createSchoolNoImg(formInput).then((response)=>{
+        if (response.success) {
           route.push("/");
-        } else if (response.status === 500) {
+        } else if (response.error) {
           console.log(response.data.error);
         } else {
-          route.push('/');
           console.log("An error has occured");
         }
       });
@@ -66,7 +63,6 @@ export default function CreateSchool(): JSX.Element {
   };
 
   const handleChange = (value: string, key: string) =>{
-    // debugger;
     setFormInput((prevState)=>({...prevState, [key]:value}))}
 
   const handleImageChange = ({
@@ -141,7 +137,10 @@ export default function CreateSchool(): JSX.Element {
                   size="large"
                   variant="contained"
                   color="primary"
-                  onClick={() => handleSubmit()}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleSubmit()
+                  }}
                 >
                   Submit
                 </Button>

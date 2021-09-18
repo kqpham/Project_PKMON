@@ -2,6 +2,7 @@ import axios from "axios";
 import { AuthApiData, AuthApiSchoolData } from "../../interface/AuthApiData";
 import { FetchOptions } from "../../interface/FetchOptions";
 import { v4 as uuidv4 } from 'uuid';
+import { schoolFields } from "../../interface/School";
 
 function setTokenExpiry(value: string) {
     const now = new Date();
@@ -40,25 +41,64 @@ export const getSchoolById = async (id: string): Promise<AuthApiSchoolData> => {
         }));
 };
 
-export const createSchool = async (data: FormData): Promise<any> => {
-    const config = {
-        headers: {
-            accept:'/',
-            'Content-Type': `multipart/form-data; boundary='xxx'`,
-        },
-    };
+export const createSchool = async (formData: FormData): Promise<any> => {
+    
     const sessionId = getExpiredKey();
-    console.log(data.getAll);
     if (sessionId != null) {
-        return await axios.post(`/${sessionId.value}`, data.getAll, config).then((res) => { return res.data }).catch(() => ({
+        return await axios({
+           method: "post",
+           url:  `/${sessionId.value}`,
+           data: formData,
+           headers: {'Content-Type': "multipart/form-data"},
+        }).then((res) => { return res.data }).catch(() => ({
             error: { message: "Unable to connect to server. Please try again" },
         }));
     } else {
         const tempID = uuidv4();
         setTokenExpiry(tempID);
-        return await axios.post(`/${tempID}`, data, config).then((res) => { return res.data }).catch(() => ({
-            error: { message: "Unable to connect to server. Please try again" },
-        }));
+        return await axios({
+            method: "post",
+            url:  `/${tempID}`,
+            data: formData,
+            headers: {'Content-Type': "multipart/form-data"},
+         }).then((res) => { return res.data }).catch(() => ({
+             error: { message: "Unable to connect to server. Please try again" },
+         }));
+    }
+
+};
+
+export const createSchoolNoImg = async (formData: schoolFields): Promise<any> => {
+    
+    const sessionId = getExpiredKey();
+    if (sessionId != null) {
+        const fetchOptions: FetchOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+            credentials: 'include',
+        };
+        return await fetch(`/n/${sessionId.value}`, fetchOptions)
+            .then((res) => res.json())
+            .catch(() => ({
+                error: { message: 'Unable to connect to server. Please try again' },
+            }));
+    } else {
+        const tempID = uuidv4();
+        setTokenExpiry(tempID);
+        console.log(JSON.stringify(formData));
+        debugger;
+        const fetchOptions: FetchOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+            credentials: 'include',
+        };
+        return await fetch(`/n/${tempID}`, fetchOptions)
+            .then((res) => res.json())
+            .catch(() => ({
+                error: { message: 'Unable to connect to server. Please try again' },
+            }));
     }
 
 };

@@ -7,6 +7,7 @@ const schoolSchema = new mongoose.Schema({
     schoolLocation: { type: String, required: true },
     schoolAdmission: { type: String, required: true },
     schoolImage: { type: String },
+    creationDate: { type: Date, default: Date.now},
     creatorId: {type: String },
 });
 

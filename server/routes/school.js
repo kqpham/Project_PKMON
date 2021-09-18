@@ -5,6 +5,7 @@ const multer = require("multer");
 
 const {
     createSchool,
+    createSchoolNoImg,
     getSchoolById,
     getAllSchools,
     updateSchool,
@@ -21,6 +22,7 @@ router.route("/:id").post(function (req, res, next) {
     });
 });
 router.route("/schools").get(getAllSchools);
+router.route("/n/:id").post(createSchoolNoImg);
 router.route("/:id").get(getSchoolById);
 router.route("/:id/:creator").patch(function (req, res, next){
     uploadMultiImage(req, res, function (err) {

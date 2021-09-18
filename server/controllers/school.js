@@ -2,37 +2,58 @@ const School = require("../models/Schools");
 const asyncHandler = require("express-async-handler");
 
 exports.createSchool = asyncHandler(async (req, res, next) => {
-  console.log(req);
   const { schoolName, schoolAbout, schoolLocation, schoolAdmission} = req.body;
-
-  let tempImage;
-  if(req.files[0].location){
-     tempImage = req.files[0].location;
-  } else{
-    tempImage = "";
-  }
-
-  const createdSchool = await School.create({
+  console.log(req.body);
+  School.create({
     schoolName,
     schoolAbout,
     schoolLocation,
     schoolAdmission,
-    schoolImage: tempImage,
+    schoolImage: req.files[0].location,
     creatorId: req.params.id,
-  });
+  }).then((response) =>{
+    console.log("new School", response);
+    if (response) {
+      res.status(201).json({
+        success: {
+          school: response,
+        },
+      });
+    } else {
+      res.status(500);
+      throw new Error(
+        "Could not create new school at this time, please try again later"
+      );
+    }
+  });  
+});
 
-  if (createdSchool) {
-    res.status(201).json({
-      success: {
-        school: createdSchool,
-      },
-    });
-  } else {
-    res.status(500);
-    throw new Error(
-      "Could not create new school at this time, please try again later"
-    );
-  }
+exports.createSchoolNoImg = asyncHandler(async (req, res, next) =>{
+  const { schoolName, schoolAbout, schoolLocation, schoolAdmission} = req.body;
+
+  const temp = ""
+  School.create({
+    schoolName,
+    schoolAbout,
+    schoolLocation,
+    schoolAdmission,
+    schoolImage: temp,
+    creatorId: req.params.id,
+  }).then((response) =>{
+    console.log("new School", response);
+    if (response) {
+      res.status(201).json({
+        success: {
+          school: response,
+        },
+      });
+    } else {
+      res.status(500);
+      throw new Error(
+        "Could not create new school at this time, please try again later"
+      );
+    }
+  });  
 });
 
 exports.getSchoolById = asyncHandler(async (req, res, next) => {
